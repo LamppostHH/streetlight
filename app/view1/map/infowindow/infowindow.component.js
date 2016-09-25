@@ -1,5 +1,5 @@
 angular.module('myApp.infoWindow', ['ngMap'])
-  .component('infowindow',{
+  .component('infoWindow',{
     templateUrl:'view1/map/infowindow/infowindow.html',
     bindings: {
       getOrg: '&',
