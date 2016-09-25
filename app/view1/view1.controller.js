@@ -11,6 +11,7 @@ angular.module('myApp.view1')
   vc.animationsEnabled = true;
 
    vc.open = function (size) {
+    console.log('fucking first one');
      var modalInstance = $uibModal.open({
        animation: vc.animationsEnabled,
        ariaLabelledBy: 'modal-title',
