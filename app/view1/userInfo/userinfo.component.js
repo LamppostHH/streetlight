@@ -12,5 +12,5 @@ angular.module('myApp.userInfo', [])
       model:'='
     },
     controller: 'UserInfoCtrl',
-    controllerAs: 'ic'
+    controllerAs: 'uc'
   })
