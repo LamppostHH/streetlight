@@ -15,6 +15,7 @@ angular.module('myApp', [
   'myApp.userInfo',
   'myApp.addEvent',
   'ui.bootstrap',
+  'firebase',
   'myApp.helper'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

@@ -11,7 +11,7 @@
   <div ng-repeat="o in mc.orgs track by $index">
     <custom-marker
       id="custom-marker-{{$index}}"
-      on-click="mc.showInfoWindow(event, $index,o)"
+      on-click="mc.showInfoWindow(event, o)"
       position="{{o.location}}"
       >
       <div class="map-icon map-icon-pin">

@@ -13,7 +13,7 @@ angular.module('myApp.map', [])
     },
     controller: 'MapCtrl',
     controllerAs: 'mc'
-  })
+  });
 
 
 

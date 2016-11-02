@@ -13,27 +13,20 @@ angular.module('myApp.mapWrapper')
     };
 
     var _listOrgs = function(){
-      console.log('mc: ', mc);
       mc.orgs = Object.keys(mc.orgMap).map(function(name){
         return mc.orgMap[name];
       });
     };
 
-    mc.markerClickHandler = function(event, $index, o){
-      console.log('args: ', event, $index, o);
-      mc.map.showInfoWindow(event, $index);
-      mc.setOrg({'orgName': o.name});
-    };
-
-    mc.showInfoWindow = function(event, $index,o) {
+    mc.showInfoWindow = function(event, o) {
       var infowindow = new google.maps.InfoWindow();
-      var center = new google.maps.LatLng(mc.orgs[$index].location[0]+0.006, mc.orgs[$index].location[1]);
+      var center = new google.maps.LatLng(o.location[0]+0.006, o.location[1]);
 
       infowindow.setPosition(center);
 
       infowindow.setContent(
-          '<h5>' + mc.orgs[$index].name + '</h5>' +
-          '<p>' + mc.orgs[$index].description + '</p>'
+          '<h5>' + o.name + '</h5>' +
+          '<p>' + o.description + '</p>'
           );
 
       infowindow.open(mc.map);
@@ -48,7 +41,7 @@ angular.module('myApp.mapWrapper')
     };
 
     mc.getColor = function(category) {
-
+      if (!category) { return null }
       category = category.toLowerCase();
       var _colorMap = {
         'healthcare': '#FF0000',
@@ -59,6 +52,7 @@ angular.module('myApp.mapWrapper')
     };
 
     mc.getIcon = function(category) {
+      if (!category) { return null }
       category = category.toLowerCase();
       var _icon = {
         'healthcare': 'map-icon-doctor',
@@ -81,7 +75,6 @@ angular.module('myApp.mapWrapper')
 
     mc.$onInit = function() {
       mc.path = [];
-      _listOrgs();
       _getMap();
     };
 

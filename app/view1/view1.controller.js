@@ -10,7 +10,6 @@ angular.module('myApp.view1')
   };
 
   var _checkOrgMap = function(){
-    console.log('length: ', Object.keys(DataFactory.orgs).length);
     return Object.keys(DataFactory.orgs).length;
   };
   var _init = function(){
