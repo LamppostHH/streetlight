@@ -44,7 +44,9 @@ angular.module('myApp.mapWrapper')
       var _colorMap = {
         'healthcare': '#FF0000',
         'food': '#00FF00',
-        'exercise': '#0000FF'
+        'exercise': '#0000FF',
+        'shelter': '#FFA500',
+        'training': '#800080'
       };
       return _colorMap[category];
     };
@@ -55,7 +57,9 @@ angular.module('myApp.mapWrapper')
       var _icon = {
         'healthcare': 'map-icon-doctor',
         'food': 'map-icon-food',
-        'exercise': 'map-icon-gym'
+        'exercise': 'map-icon-gym',
+        'shelter': 'map-icon-insurance-agency',
+        'training': 'map-icon-school'
       };
       return _icon[category];
     };
