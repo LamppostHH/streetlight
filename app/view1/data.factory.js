@@ -10,11 +10,13 @@ angular.module('myApp.data', ['firebase'])
     data.orgs = $firebaseObject(fireRef);
     data.addOrg = function(org){
       data.orgs[org.name] = org;
-      console.log('orgData: ', data.orgs);
+    };
+    data.save = function() {
+
+      data.orgs.$save().then(function(resp){console.log('saved:',resp)});
     };
     return data;
-  }
-  ]);
+  }]);
 
 // modify dummy orgs here for development
 var _orgs = {

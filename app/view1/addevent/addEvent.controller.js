@@ -7,8 +7,9 @@ angular.module('myApp.addEvent', [])
         ec.newEvent.location = result;
         console.log('event: ', ec.newEvent);
         Selected.events.push(ec.newEvent);
-        console.log('Selected: ', Selected);
-        console.log('Selected: ', DataFactory);
+        console.log('selected: ', Selected);
+        console.log('data factory: ', DataFactory.orgs);
+        DataFactory.save();
         $scope.$close();
       })
 
