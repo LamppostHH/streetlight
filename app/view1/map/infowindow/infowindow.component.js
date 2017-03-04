@@ -7,4 +7,4 @@ angular.module('myApp.infoWindow', ['ngMap'])
     },
     controller: 'infoWindowCtrl',
     controllerAs: 'iw'
-  })
+  });

@@ -15,6 +15,7 @@ angular.module('myApp', [
   'myApp.userInfo',
   'myApp.addEvent',
   'ui.bootstrap',
+  'firebase',
   'myApp.helper'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -25,7 +26,6 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 .controller('AppCtrl', ['$uibModal', 'DataFactory', '$scope', function($uibModal, DataFactory, $scope) {
   $scope.animationsEnabled = true;
   $scope.open = function (size) {
-    console.log('fucking first one');
      var modalInstance = $uibModal.open({
        animation: $scope.animationsEnabled,
        ariaLabelledBy: 'modal-title',
@@ -36,7 +36,6 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
        size: size
      });
     modalInstance.result.then(function(result){
-      console.log('result happened!', result);
       $scope.$broadcast('created', result);
     })
    };

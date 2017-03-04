@@ -10,25 +10,29 @@ angular.module('myApp.view1')
   };
 
   var _checkOrgMap = function(){
-    console.log('length: ', Object.keys(DataFactory.orgs).length);
     return Object.keys(DataFactory.orgs).length;
   };
   var _init = function(){
-    vc.orgMap = DataFactory.orgs;
-    console.log('orgMap: ', vc.orgMap);
-    $scope.$watch(_checkOrgMap, function(newVal, oldVal){
-      if(!newVal || !oldVal){
-        return false;
-      }
-      vc.orgMap = angular.copy(DataFactory.orgs);
-    })
-  };
-    $scope.$on('created', function(){
-      vc.showPopover = true;
-      $timeout(function(){
-        vc.showPopover = false;
-      }, 5000)
+    DataFactory.orgs.$loaded().then(function(){
+      vc.orgMap = DataFactory.orgs;
+      vc.loaded = true;
+      vc.changeCounter = 0;
+      // $scope.$watch(_checkOrgMap, function(newVal, oldVal){
+      //   if(!newVal || !oldVal){
+      //     return false;
+      //   }
+      //   console.log('changes');
+      //   debugger;
+      //   vc.changeCounter++;
+      // })
     });
+  };
+  $scope.$on('created', function(){
+    vc.showPopover = true;
+    $timeout(function(){
+      vc.showPopover = false;
+    }, 5000)
+  });
   _init();
 
 

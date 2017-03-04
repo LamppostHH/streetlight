@@ -1,18 +1,22 @@
-angular.module('myApp.data', [])
-  .factory('DataFactory', [function(){
+angular.module('myApp.data', ['firebase'])
+  .factory('DataFactory', ['$firebaseObject', function($firebaseObject){
+
+    var fireRef = firebase.database().ref();
     // Used to inject dummy data into various services:
     // 1) inject DataFactory, then
     // 2) set local var to orgs, ie: vm.orgs = data.orgs
     // 3) add other non-org data as needed to this file
     var data = {};
-    data.orgs = _orgs;
+    data.orgs = $firebaseObject(fireRef);
     data.addOrg = function(org){
       data.orgs[org.name] = org;
-      console.log('orgData: ', data.orgs);
+    };
+    data.save = function() {
+
+      data.orgs.$save().then(function(resp){console.log('saved:',resp)});
     };
     return data;
-  }
-  ]);
+  }]);
 
 // modify dummy orgs here for development
 var _orgs = {
@@ -153,5 +157,4 @@ var _orgs = {
       time: ['08:00', '12:56']
     }]
   }
-
 };

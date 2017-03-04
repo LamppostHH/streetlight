@@ -3,37 +3,28 @@ angular.module('myApp.mapWrapper')
     var mc = this;
 
     var _getMap = function(){
-        console.log("timeout");
         NgMap.getMap('ng-map').then(function(map) {
           mc.map = map;
-          console.log(map.getCenter());
-          console.log('markers', map.markers);
-          console.log('shapes', map.shapes);
+          mc.loaded = true;
         });
     };
 
     var _listOrgs = function(){
-      console.log('mc: ', mc);
-      mc.orgs = Object.keys(mc.orgMap).map(function(name){
+      mc.orgs = Object.keys(mc.orgMap).filter(function(key){return key[0]!=='$'}).map(function(name){
         return mc.orgMap[name];
       });
     };
 
-    mc.markerClickHandler = function(event, $index, o){
-      console.log('args: ', event, $index, o);
-      mc.map.showInfoWindow(event, $index);
-      mc.setOrg({'orgName': o.name});
-    };
-
-    mc.showInfoWindow = function(event, $index,o) {
+    mc.showInfoWindow = function(event, o) {
       var infowindow = new google.maps.InfoWindow();
-      var center = new google.maps.LatLng(mc.orgs[$index].location[0]+0.006, mc.orgs[$index].location[1]);
+      console.log('o: ', o);
+      var center = new google.maps.LatLng(o.location[0]+0.006, o.location[1]);
 
       infowindow.setPosition(center);
 
       infowindow.setContent(
-          '<h5>' + mc.orgs[$index].name + '</h5>' +
-          '<p>' + mc.orgs[$index].description + '</p>'
+          '<h5>' + o.name + '</h5>' +
+          '<p>' + o.description + '</p>'
           );
 
       infowindow.open(mc.map);
@@ -48,22 +39,27 @@ angular.module('myApp.mapWrapper')
     };
 
     mc.getColor = function(category) {
-
+      if (!category) { return null }
       category = category.toLowerCase();
       var _colorMap = {
         'healthcare': '#FF0000',
         'food': '#00FF00',
-        'exercise': '#0000FF'
+        'exercise': '#0000FF',
+        'shelter': '#FFA500',
+        'training': '#800080'
       };
       return _colorMap[category];
     };
 
     mc.getIcon = function(category) {
+      if (!category) { return null }
       category = category.toLowerCase();
       var _icon = {
         'healthcare': 'map-icon-doctor',
         'food': 'map-icon-food',
-        'exercise': 'map-icon-gym'
+        'exercise': 'map-icon-gym',
+        'shelter': 'map-icon-insurance-agency',
+        'training': 'map-icon-school'
       };
       return _icon[category];
     };
@@ -71,17 +67,18 @@ angular.module('myApp.mapWrapper')
     $scope.$on('created', function(evt, createdObj){
       mc.adding = true;
       mc.editObj = createdObj;
+      _listOrgs();
       console.log('editObj: ', mc.editObj);
     });
     // this is hideous pls don't do this
     mc.saveServiceArea = function(){
       mc.adding = false;
       mc.orgMap[mc.editObj.name].serviceArea = mc.path;
+      mc.orgMap.$save()
     };
 
     mc.$onInit = function() {
       mc.path = [];
-      _listOrgs();
       _getMap();
     };
 

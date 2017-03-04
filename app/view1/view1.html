@@ -1,8 +1,8 @@
 <div class="container">
 
   <div class='row'>
-    <div class='col-md-9 pull-left' id='map-container' uib-popover="Now, draw your service area on the map" popover-is-open="vc.showPopover" popover-enable="vc.showPopover">
-      <map-wrapper mapname="map" set-org="vc.setSelectedOrg(orgName)" org-map="vc.orgMap"></map-wrapper>
+    <div class='col-md-9 pull-left' id='map-container' uib-popover="Now, draw your service area on the map" popover-is-open="vc.showPopover" popover-enable="vc.showPopover" ng-if="vc.loaded">
+      <map-wrapper mapname="map" set-org="vc.setSelectedOrg(orgName)" org-map="vc.orgMap" change-number="vc.changeNumber"></map-wrapper>
     </div>
     <div class='col-md-3 pull-right'>
       <button type="button" class="btn btn-default" id="eventButton" ng-click="vc.addEvent('lg')">Add Event</button>

@@ -12,24 +12,10 @@ angular.module('myApp.view2', ['ngRoute'])
 .controller('View2Ctrl', ['DataFactory','$scope', function(DataFactory, $scope) {
   var vt = this;
   vt.orgEvents = [];
-  var _checkOrgMap = function(){
-    return Object.keys(DataFactory.orgs).length;
-  };
   var _init = function(){
-    Object.keys(DataFactory.orgs).forEach(function(key){
-        vt.orgEvents = vt.orgEvents.concat(DataFactory.orgs[key].events);
+    Object.keys(DataFactory.orgs).filter(function(key){return key[0]!=='$'}).forEach(function(key){
+      vt.orgEvents = vt.orgEvents.concat(DataFactory.orgs[key].events || []);
     });
-    $scope.$watch(_checkOrgMap, function(newVal, oldVal){
-      if(!newVal || !oldVal){
-        return false;
-      }
-      vt.org = angular.copy(DataFactory.orgs);
-      vt.orgEvents = [];
-      Object.keys(DataFactory.orgs).forEach(function(key){
-        vt.orgEvents = vt.orgEvents.concat(DataFactory.orgs[key].events);
-      });
-
-    })
   };
 
   _init()

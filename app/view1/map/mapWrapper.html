@@ -8,10 +8,10 @@
   on-click="mc.mapClickHandler()">
   <button type="button" class="btn btn-default" id="thang" ng-click="mc.saveServiceArea()" ng-if="mc.adding">Save Service Area</button>
 
-  <div ng-repeat="o in mc.orgs track by $index">
+  <div ng-repeat="o in mc.orgs track by $index" ng-if="mc.loaded">
     <custom-marker
       id="custom-marker-{{$index}}"
-      on-click="mc.showInfoWindow(event, $index,o)"
+      on-click="mc.showInfoWindow(event, o)"
       position="{{o.location}}"
       >
       <div class="map-icon map-icon-pin">
